@@ -19,6 +19,20 @@
 
         todoApp.controller("TodoCtrl", function ($scope) {
             $scope.todo = model;
+
+            $scope.incompleteCount = function () {
+                var count = 0;
+                angular.forEach($scope.todo.items, function (item) {
+                    if (item.done == false) {
+                        count++;
+                    }
+                });
+                return count;
+            };
+
+            $scope.warningLevel = function () {
+                return $scope.incompleteCount() <= 2 ? "label-warning" : "label-danger";
+            };
         });
     </script>
 </head>
@@ -26,7 +40,7 @@
     <div class="page-header">
         <h1>
             {{todo.name}}'s Todo List
-            <span class="label label-danger">3</span>
+            <span class="label" ng-hide="incompleteCount() == 0" ng-class="warningLevel()">{{incompleteCount()}}</span>
         </h1>
     </div>
     <div class="panel">
