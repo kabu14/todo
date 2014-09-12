@@ -1,47 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="todoApp">
 <head>
     <title>To Do App</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="js/angular.js"></script>
+    <script>
+        var model = {
+            name: "Wayne",
+            items: [
+                {action: "Pick up books", done: true},
+                {action: "Read Chapter 3", done: false},
+                {action: "Buy Bread", done: false},
+                {action: "Fill up car", done: false},
+            ]
+        };
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("TodoCtrl", function ($scope) {
+            $scope.todo = model;
+        });
+    </script>
 </head>
-<body>
+<body ng-controller="TodoCtrl">
     <div class="page-header">
         <h1>
-            Wayne's Todo List
+            {{todo.name}}'s Todo List
             <span class="label label-danger">3</span>
         </h1>
     </div>
     <div class="panel">
         <table class="table table-striped">
-            <theader>
+            <thead>
                 <tr>
-                    <td>Task</td>
-                    <td>Done</td>
-                    <td>Status</td>
+                    <th>Task</th>
+                    <th>Done</th>
+                    <th>done</th>
                 </tr>
-            </theader>
+            </thead>
             <tbody>
-            <tr>
-                <td>Pick up books</td>
-                <td><input type="checkbox" checked="checked"/></td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td>Buy Bread</td>
-                <td><input type="checkbox"/></td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td>Fill up car</td>
-                <td><input type="checkbox"/></td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td>Fill up car</td>
-                <td><input type="checkbox"/></td>
-                <td>false</td>
-            </tr>
+                <tr ng-repeat="item in todo.items">
+                    <td>{{item.action}}</td>
+                    <td><input type="checkbox" ng-model="item.done"/></td>
+                    <td>{{item.done}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
