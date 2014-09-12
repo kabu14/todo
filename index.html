@@ -11,7 +11,7 @@
                 {action: "Pick up books", done: true},
                 {action: "Read Chapter 3", done: false},
                 {action: "Buy Bread", done: false},
-                {action: "Fill up car", done: false},
+                {action: "Fill up car", done: false}
             ]
         };
 
@@ -33,6 +33,10 @@
             $scope.warningLevel = function () {
                 return $scope.incompleteCount() <= 2 ? "label-warning" : "label-danger";
             };
+
+            $scope.addNew = function (actionText) {
+                $scope.todo.items.push({action: actionText, done: "false"});
+            }
         });
     </script>
 </head>
@@ -44,6 +48,12 @@
         </h1>
     </div>
     <div class="panel">
+        <div class="input-group">
+            <input class="form-control" type="text" ng-model="actionText"/>
+            <div class="input-group-btn">
+                <button class="btn btn-default" ng-click="addNew(actionText)">Add</button>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
