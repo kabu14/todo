@@ -6,16 +6,19 @@
     <script src="js/angular.js"></script>
     <script>
         var model = {
-            name: "Wayne",
-            items: [
-                {action: "Pick up books", done: true},
-                {action: "Read Chapter 3", done: false},
-                {action: "Buy Bread", done: false},
-                {action: "Fill up car", done: false}
-            ]
+            name: "Wayne"
         };
 
         var todoApp = angular.module("todoApp", []);
+
+        /**
+         * Ajax call to get todo items data
+         */
+        todoApp.run(function ($http) {
+            $http.get("todo.json").success(function (data) {
+                model.items = data;
+            });
+        });
 
         todoApp.filter("checkedItems", function () {
             return function (items, showComplete) {
